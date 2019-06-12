@@ -41,7 +41,24 @@ class _HomeWidgetState extends State<HomeWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          MaterialButton(
+            color: Colors.lightGreen,
+            child: Text("Set Pattern", style: TextStyle(color: Colors.white)),
+            onPressed: () async {
+              final result = await Navigator.pushNamed(context, "set_pattern");
+              if (result is List<int>) {
+                Scaffold.of(context).hideCurrentSnackBar();
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text("pattern is $result")),
+                );
+                setState(() {
+                  pattern = result;
+                });
+              }
+            },
+          ),
           if (pattern != null) ...[
+            SizedBox(height: 16),
             MaterialButton(
               color: Colors.green,
               child:
@@ -65,24 +82,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 }
               },
             ),
-            SizedBox(height: 16),
           ],
-          MaterialButton(
-            color: Colors.lightGreen,
-            child: Text("Set Pattern", style: TextStyle(color: Colors.white)),
-            onPressed: () async {
-              final result = await Navigator.pushNamed(context, "set_pattern");
-              if (result is List<int>) {
-                Scaffold.of(context).hideCurrentSnackBar();
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text("pattern is $result")),
-                );
-                setState(() {
-                  pattern = result;
-                });
-              }
-            },
-          ),
         ],
       ),
     );

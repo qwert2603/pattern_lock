@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pattern_lock/src/utils.dart';
 
 class PatternLock extends StatefulWidget {
   final int dimension;
@@ -57,7 +58,7 @@ class _PatternLockState extends State<PatternLock> {
         Offset localPosition =
             referenceBox.globalToLocal(details.globalPosition);
 
-        Offset circlePosition(int n) => _circlePosition(
+        Offset circlePosition(int n) => calcCirclePosition(
               n,
               referenceBox.size,
               widget.dimension,
@@ -116,7 +117,7 @@ class _LockPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Offset circlePosition(int n) =>
-        _circlePosition(n, size, dimension, relativePadding);
+        calcCirclePosition(n, size, dimension, relativePadding);
 
     final circlePaint = Paint()
       ..color = Colors.black45
@@ -160,20 +161,4 @@ class _LockPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-Offset _circlePosition(
-    int n, Size size, int dimension, double relativePadding) {
-  final o = size.width > size.height
-      ? Offset((size.width - size.height) / 2, 0)
-      : Offset(0, (size.height - size.width) / 2);
-  return o +
-      Offset(
-        size.shortestSide /
-            (dimension - 1 + relativePadding * 2) *
-            (n % dimension + relativePadding),
-        size.shortestSide /
-            (dimension - 1 + relativePadding * 2) *
-            (n ~/ dimension + relativePadding),
-      );
 }
