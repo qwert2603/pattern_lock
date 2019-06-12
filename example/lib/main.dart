@@ -105,7 +105,6 @@ class CheckPattern extends StatelessWidget {
         pointRadius: 8,
         showInput: true,
         dimension: 3,
-        minPoints: 3,
         relativePadding: 0.7,
         inputThreshold: 25,
         fillPoints: true,
@@ -161,6 +160,18 @@ class _SetPatternState extends State<SetPattern> {
               usedColor: Colors.amber,
               pointRadius: 12,
               onInputComplete: (List<int> input) {
+                if (input.length < 3) {
+                  scaffoldKey.currentState.hideCurrentSnackBar();
+                  scaffoldKey.currentState.showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "At least 3 points required",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  );
+                  return;
+                }
                 if (isConfirm) {
                   if (listEquals<int>(input, pattern)) {
                     Navigator.of(context).pop(pattern);

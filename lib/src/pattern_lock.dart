@@ -4,7 +4,6 @@ import 'package:pattern_lock/src/utils.dart';
 class PatternLock extends StatefulWidget {
   final int dimension;
   final double relativePadding;
-  final int minPoints;
   final Color usedColor;
   final double pointRadius;
   final bool showInput;
@@ -16,7 +15,6 @@ class PatternLock extends StatefulWidget {
     Key key,
     this.dimension = 3,
     this.relativePadding = 0.7,
-    this.minPoints = 3,
     this.usedColor, // Theme.of(context).primaryColor if null
     this.pointRadius = 10,
     this.showInput = true,
@@ -25,7 +23,6 @@ class PatternLock extends StatefulWidget {
     @required this.onInputComplete,
   })  : assert(dimension != null),
         assert(relativePadding != null),
-        assert(minPoints != null),
         assert(pointRadius != null),
         assert(showInput != null),
         assert(inputThreshold != null),
@@ -45,7 +42,7 @@ class _PatternLockState extends State<PatternLock> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanEnd: (DragEndDetails details) {
-        if (used.length >= widget.minPoints) {
+        if (used.isNotEmpty) {
           widget.onInputComplete(used);
         }
         setState(() {
