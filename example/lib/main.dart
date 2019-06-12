@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pattern Lock Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -27,32 +27,22 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: PatternLock(
-        usedColor: Colors.orange,
+        usedColor: Colors.red,
         pointRadius: 8,
         showInput: true,
         dimension: 3,
         minPoints: 3,
         relativePadding: 0.7,
-        inputThreshold: 20,
-        inputChecker: (points) => listEquals<int>(points, [0, 3, 7]),
-        onCorrectInput: (points) {
+        inputThreshold: 25,
+        fillPoints: true,
+        onInputComplete: (points) {
+          final ok = listEquals<int>(points, [0, 3, 7]);
           Scaffold.of(context).hideCurrentSnackBar();
           Scaffold.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                "done",
-                style: TextStyle(color: Colors.green),
-              ),
-            ),
-          );
-        },
-        onIncorrectInput: () {
-          Scaffold.of(context).hideCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "wrong",
-                style: TextStyle(color: Colors.red),
+                ok ? "done" : "wrong",
+                style: TextStyle(color: ok ? Colors.green : Colors.red),
               ),
             ),
           );

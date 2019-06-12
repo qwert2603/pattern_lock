@@ -8,9 +8,8 @@ class PatternLock extends StatefulWidget {
   final double pointRadius;
   final bool showInput;
   final int inputThreshold;
-  final bool Function(List<int>) inputChecker;
-  final Function(List<int>) onCorrectInput;
-  final Function() onIncorrectInput;
+  final bool fillPoints;
+  final Function(List<int>) onInputComplete;
 
   const PatternLock({
     Key key,
@@ -21,11 +20,16 @@ class PatternLock extends StatefulWidget {
     this.pointRadius = 10,
     this.showInput = true,
     this.inputThreshold = 25,
-    @required this.inputChecker,
-    @required this.onCorrectInput,
-    this.onIncorrectInput,
-  })  : assert(inputChecker != null),
-        assert(onCorrectInput != null),
+    this.fillPoints = false,
+    @required this.onInputComplete,
+  })  : assert(dimension != null),
+        assert(relativePadding != null),
+        assert(minPoints != null),
+        assert(pointRadius != null),
+        assert(showInput != null),
+        assert(inputThreshold != null),
+        assert(fillPoints != null),
+        assert(onInputComplete != null),
         super(key: key);
 
   @override
@@ -41,11 +45,7 @@ class _PatternLockState extends State<PatternLock> {
     return GestureDetector(
       onPanEnd: (DragEndDetails details) {
         if (used.length >= widget.minPoints) {
-          if (widget.inputChecker(used)) {
-            widget.onCorrectInput(used);
-          } else {
-            if (widget.onIncorrectInput != null) widget.onIncorrectInput();
-          }
+          widget.onInputComplete(used);
         }
         setState(() {
           used = [];
@@ -83,6 +83,7 @@ class _PatternLockState extends State<PatternLock> {
           usedColor: widget.usedColor ?? Theme.of(context).primaryColor,
           pointRadius: widget.pointRadius,
           showInput: widget.showInput,
+          fillPoints: widget.fillPoints,
         ),
         size: Size.infinite,
       ),
@@ -99,6 +100,7 @@ class _LockPainter extends CustomPainter {
   final Color usedColor;
   final double pointRadius;
   final bool showInput;
+  final bool fillPoints;
 
   _LockPainter({
     this.dimension,
@@ -108,6 +110,7 @@ class _LockPainter extends CustomPainter {
     this.usedColor,
     this.pointRadius,
     this.showInput,
+    this.fillPoints,
   });
 
   @override
@@ -117,11 +120,11 @@ class _LockPainter extends CustomPainter {
 
     final circlePaint = Paint()
       ..color = Colors.black45
-      ..style = PaintingStyle.stroke
+      ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2;
     final usedCirclePaint = Paint()
       ..color = usedColor
-      ..style = PaintingStyle.stroke
+      ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2;
 
     for (int i = 0; i < dimension; ++i) {
