@@ -101,12 +101,12 @@ class CheckPattern extends StatelessWidget {
         title: Text("Check Pattern"),
       ),
       body: PatternLock(
-        usedColor: Colors.red,
+        selectedColor: Colors.red,
         pointRadius: 8,
         showInput: true,
         dimension: 3,
         relativePadding: 0.7,
-        inputThreshold: 25,
+        selectThreshold: 25,
         fillPoints: true,
         onInputComplete: (List<int> input) {
           if (listEquals<int>(input, pattern)) {
@@ -157,7 +157,7 @@ class _SetPatternState extends State<SetPattern> {
           ),
           Flexible(
             child: PatternLock(
-              usedColor: Colors.amber,
+              selectedColor: Colors.amber,
               pointRadius: 12,
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {

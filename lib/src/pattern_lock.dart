@@ -4,28 +4,38 @@ import 'package:pattern_lock/src/utils.dart';
 class PatternLock extends StatefulWidget {
   final int dimension;
   final double relativePadding;
-  final Color usedColor;
+  final Color selectedColor;
   final double pointRadius;
   final bool showInput;
-  final int inputThreshold;
+  final int selectThreshold;
   final bool fillPoints;
   final Function(List<int>) onInputComplete;
 
+  /// Creates [PatternLock] with given params.
+  ///
+  /// [dimension] count of points horizontally and vertically.
+  /// [relativePadding] padding of points area relative to distance between points.
+  /// [selectedColor] color of selected points.
+  /// [pointRadius] radius of points.
+  /// [showInput] whether show user's input and highlight selected points.
+  /// [selectThreshold] needed distance from input to point to select point.
+  /// [fillPoints] whether fill points.
+  /// [onInputComplete] callback that called when user's input complete. Called if user selected one or more points.
   const PatternLock({
     Key key,
     this.dimension = 3,
     this.relativePadding = 0.7,
-    this.usedColor, // Theme.of(context).primaryColor if null
+    this.selectedColor, // Theme.of(context).primaryColor if null
     this.pointRadius = 10,
     this.showInput = true,
-    this.inputThreshold = 25,
+    this.selectThreshold = 25,
     this.fillPoints = false,
     @required this.onInputComplete,
   })  : assert(dimension != null),
         assert(relativePadding != null),
         assert(pointRadius != null),
         assert(showInput != null),
-        assert(inputThreshold != null),
+        assert(selectThreshold != null),
         assert(fillPoints != null),
         assert(onInputComplete != null),
         super(key: key);
@@ -66,7 +76,7 @@ class _PatternLockState extends State<PatternLock> {
           currentPoint = localPosition;
           for (int i = 0; i < widget.dimension * widget.dimension; ++i) {
             final toPoint = (circlePosition(i) - localPosition).distance;
-            if (!used.contains(i) && toPoint < widget.inputThreshold) {
+            if (!used.contains(i) && toPoint < widget.selectThreshold) {
               used.add(i);
             }
           }
@@ -78,7 +88,7 @@ class _PatternLockState extends State<PatternLock> {
           used: used,
           currentPoint: currentPoint,
           relativePadding: widget.relativePadding,
-          usedColor: widget.usedColor ?? Theme.of(context).primaryColor,
+          selectedColor: widget.selectedColor ?? Theme.of(context).primaryColor,
           pointRadius: widget.pointRadius,
           showInput: widget.showInput,
           fillPoints: widget.fillPoints,
@@ -95,17 +105,17 @@ class _LockPainter extends CustomPainter {
   final List<int> used;
   final Offset currentPoint;
   final double relativePadding;
-  final Color usedColor;
+  final Color selectedColor;
   final double pointRadius;
   final bool showInput;
   final bool fillPoints;
 
-  _LockPainter({
+  const _LockPainter({
     this.dimension,
     this.used,
     this.currentPoint,
     this.relativePadding,
-    this.usedColor,
+    this.selectedColor,
     this.pointRadius,
     this.showInput,
     this.fillPoints,
@@ -121,7 +131,7 @@ class _LockPainter extends CustomPainter {
       ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2;
     final usedCirclePaint = Paint()
-      ..color = usedColor
+      ..color = selectedColor
       ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2;
 
