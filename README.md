@@ -1,14 +1,44 @@
-# pattern_lock
+# Pattern Lock
 
-Pattern lock as Flutter widget.
+[![pub package](https://img.shields.io/pub/v/pattern_lock.svg)](https://pub.dartlang.org/packages/pattern_lock)
 
-## Getting Started
+Pattern Lock as Flutter widget.
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Demo
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![](https://github.com/qwert2603/pattern_lock/blob/master/art/device20190613185830.gif)
+
+## Usage
+
+```dart
+PatternLock(
+  // color of selected points.
+  selectedColor: Colors.red,
+  // radius of points.
+  pointRadius: 8,
+  // whether show user's input and highlight selected points.
+  showInput: true,
+  // count of points horizontally and vertically.
+  dimension: 3,
+  // padding of points area relative to distance between points.
+  relativePadding: 0.7,
+  // needed distance from input to point to select point.
+  selectThreshold: 25,
+  // whether fill points.
+  fillPoints: true,
+  // callback that called when user's input complete. Called if user selected one or more points.
+  onInputComplete: (List<int> input) {
+    print("pattern is $input");
+  },
+);
+```
+
+## [Example](https://github.com/qwert2603/pattern_lock/tree/master/example)
+
+Example app with pattern setting and checking can be found [here](https://github.com/qwert2603/pattern_lock/tree/master/example).
+
+## Screenshots
+
+![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190318.png)
+![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190413.png)
+![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190556.png)
