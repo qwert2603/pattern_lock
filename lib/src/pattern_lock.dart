@@ -130,9 +130,10 @@ class _LockPainter extends CustomPainter {
       ..color = Colors.black45
       ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2;
-    final usedCirclePaint = Paint()
+    final selectedPaint = Paint()
       ..color = selectedColor
       ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
       ..strokeWidth = 2;
 
     for (int i = 0; i < dimension; ++i) {
@@ -141,7 +142,7 @@ class _LockPainter extends CustomPainter {
           circlePosition(i * dimension + j),
           pointRadius,
           showInput && used.contains(i * dimension + j)
-              ? usedCirclePaint
+              ? selectedPaint
               : circlePaint,
         );
       }
@@ -152,7 +153,7 @@ class _LockPainter extends CustomPainter {
         canvas.drawLine(
           circlePosition(used[i]),
           circlePosition(used[i + 1]),
-          usedCirclePaint,
+          selectedPaint,
         );
       }
 
@@ -160,7 +161,7 @@ class _LockPainter extends CustomPainter {
         canvas.drawLine(
           circlePosition(used[used.length - 1]),
           currentPoint,
-          usedCirclePaint,
+          selectedPaint,
         );
       }
     }
