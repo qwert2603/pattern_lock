@@ -1,3 +1,7 @@
+## [1.0.2]
+
+* Demo screenshots.
+
 ## [1.0.1]
 
 * Using StrokeCap.round for painting lines.
