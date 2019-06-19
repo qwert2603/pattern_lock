@@ -39,6 +39,4 @@ Example app with pattern setting and checking can be found [here](https://github
 
 ## Screenshots
 
-![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190318.png)
-![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190413.png)
-![](https://github.com/qwert2603/pattern_lock/blob/master/art/device-2019-06-13-190556.png)
+![](https://github.com/qwert2603/pattern_lock/blob/master/art/demo.png)
