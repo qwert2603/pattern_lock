@@ -2,6 +2,7 @@ import 'package:example/big_pattern.dart';
 import 'package:example/check_pattern.dart';
 import 'package:example/set_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,6 +44,27 @@ class _HomeWidgetState extends State<HomeWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Text(
+            'This is demo of "Pattern Lock" Flutter library',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 4),
+          InkWell(
+            child: Text(
+              'https://github.com/qwert2603/pattern_lock',
+              style: TextStyle(fontSize: 16, color: Colors.deepOrange),
+            ),
+            onTap: () => launch("https://github.com/qwert2603/pattern_lock"),
+          ),
+          SizedBox(height: 4),
+          InkWell(
+            child: Text(
+              'https://pub.dev/packages/pattern_lock',
+              style: TextStyle(fontSize: 16, color: Colors.deepOrange),
+            ),
+            onTap: () => launch("https://pub.dev/packages/pattern_lock"),
+          ),
+          SizedBox(height: 24),
           MaterialButton(
             color: Colors.lightGreen,
             child: Text("Set Pattern", style: TextStyle(color: Colors.white)),
