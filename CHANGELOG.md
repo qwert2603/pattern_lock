@@ -1,6 +1,7 @@
 ## [1.0.3]
 
-* Demo [web-site](https://qwert2603.github.io/pattern_lock)
+* Param for not selected points color.
+* Demo [web-site](https://qwert2603.github.io/pattern_lock).
 
 ## [1.0.2]
 
