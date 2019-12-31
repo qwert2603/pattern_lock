@@ -5,6 +5,7 @@ class PatternLock extends StatefulWidget {
   final int dimension;
   final double relativePadding;
   final Color selectedColor;
+  final Color notSelectedColor;
   final double pointRadius;
   final bool showInput;
   final int selectThreshold;
@@ -16,6 +17,7 @@ class PatternLock extends StatefulWidget {
   /// [dimension] count of points horizontally and vertically.
   /// [relativePadding] padding of points area relative to distance between points.
   /// [selectedColor] color of selected points.
+  /// [notSelectedColor] color of not selected points.
   /// [pointRadius] radius of points.
   /// [showInput] whether show user's input and highlight selected points.
   /// [selectThreshold] needed distance from input to point to select point.
@@ -26,6 +28,9 @@ class PatternLock extends StatefulWidget {
     this.dimension = 3,
     this.relativePadding = 0.7,
     this.selectedColor, // Theme.of(context).primaryColor if null
+    this.notSelectedColor,
+
+    /// [Colors.black45] if null
     this.pointRadius = 10,
     this.showInput = true,
     this.selectThreshold = 25,
@@ -89,6 +94,7 @@ class _PatternLockState extends State<PatternLock> {
           currentPoint: currentPoint,
           relativePadding: widget.relativePadding,
           selectedColor: widget.selectedColor ?? Theme.of(context).primaryColor,
+          notSelectedColor: widget.notSelectedColor ?? Colors.black45,
           pointRadius: widget.pointRadius,
           showInput: widget.showInput,
           fillPoints: widget.fillPoints,
@@ -106,35 +112,38 @@ class _LockPainter extends CustomPainter {
   final Offset currentPoint;
   final double relativePadding;
   final Color selectedColor;
+  final Color notSelectedColor;
   final double pointRadius;
   final bool showInput;
   final bool fillPoints;
 
-  const _LockPainter({
+  final Paint circlePaint;
+  final Paint selectedPaint;
+
+  _LockPainter({
     this.dimension,
     this.used,
     this.currentPoint,
     this.relativePadding,
     this.selectedColor,
+    this.notSelectedColor,
     this.pointRadius,
     this.showInput,
     this.fillPoints,
-  });
+  })  : circlePaint = Paint()
+          ..color = notSelectedColor
+          ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
+          ..strokeWidth = 2,
+        selectedPaint = Paint()
+          ..color = selectedColor
+          ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round
+          ..strokeWidth = 2;
 
   @override
   void paint(Canvas canvas, Size size) {
     Offset circlePosition(int n) =>
         calcCirclePosition(n, size, dimension, relativePadding);
-
-    final circlePaint = Paint()
-      ..color = Colors.black45
-      ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
-      ..strokeWidth = 2;
-    final selectedPaint = Paint()
-      ..color = selectedColor
-      ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2;
 
     for (int i = 0; i < dimension; ++i) {
       for (int j = 0; j < dimension; ++j) {
