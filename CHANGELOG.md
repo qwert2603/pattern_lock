@@ -1,3 +1,7 @@
+## [1.0.4]
+
+* Migrate to AndroidX.
+
 ## [1.0.3]
 
 * Param for not selected points color.

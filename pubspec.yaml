@@ -1,7 +1,7 @@
 name: pattern_lock
 description:
   Pattern lock as Flutter widget. Customizable and easy to use.
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/qwert2603/pattern_lock
 
 environment:
