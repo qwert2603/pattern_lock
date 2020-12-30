@@ -7,7 +7,7 @@ class CheckPattern extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<int> pattern = ModalRoute.of(context).settings.arguments;
+    final List<int>? pattern = ModalRoute.of(context)!.settings.arguments as List<int>?;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -35,8 +35,8 @@ class CheckPattern extends StatelessWidget {
                 if (listEquals<int>(input, pattern)) {
                   Navigator.of(context).pop(true);
                 } else {
-                  scaffoldKey.currentState.hideCurrentSnackBar();
-                  scaffoldKey.currentState.showSnackBar(
+                  scaffoldKey.currentState!.hideCurrentSnackBar();
+                  scaffoldKey.currentState!.showSnackBar(
                     SnackBar(
                       content: Text(
                         "wrong",

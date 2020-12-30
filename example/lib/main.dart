@@ -35,7 +35,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  List<int> pattern;
+  List<int>? pattern;
 
   @override
   Widget build(BuildContext context) {

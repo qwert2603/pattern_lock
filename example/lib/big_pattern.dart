@@ -30,8 +30,8 @@ class BigPattern extends StatelessWidget {
               fillPoints: true,
               onInputComplete: (List<int> input) {
                 if (input.length < 4) {
-                  scaffoldKey.currentState.hideCurrentSnackBar();
-                  scaffoldKey.currentState.showSnackBar(
+                  scaffoldKey.currentState!.hideCurrentSnackBar();
+                  scaffoldKey.currentState!.showSnackBar(
                     SnackBar(
                       content: Text(
                         "At least 4 points required",
@@ -42,8 +42,8 @@ class BigPattern extends StatelessWidget {
                   return;
                 }
 
-                scaffoldKey.currentState.hideCurrentSnackBar();
-                scaffoldKey.currentState.showSnackBar(
+                scaffoldKey.currentState!.hideCurrentSnackBar();
+                scaffoldKey.currentState!.showSnackBar(
                   SnackBar(content: Text("pattern is $input")),
                 );
               },

@@ -9,7 +9,7 @@ class SetPattern extends StatefulWidget {
 
 class _SetPatternState extends State<SetPattern> {
   bool isConfirm = false;
-  List<int> pattern;
+  List<int>? pattern;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,8 +35,8 @@ class _SetPatternState extends State<SetPattern> {
               pointRadius: 12,
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {
-                  scaffoldKey.currentState.hideCurrentSnackBar();
-                  scaffoldKey.currentState.showSnackBar(
+                  scaffoldKey.currentState!.hideCurrentSnackBar();
+                  scaffoldKey.currentState!.showSnackBar(
                     SnackBar(
                       content: Text(
                         "At least 3 points required",
@@ -50,8 +50,8 @@ class _SetPatternState extends State<SetPattern> {
                   if (listEquals<int>(input, pattern)) {
                     Navigator.of(context).pop(pattern);
                   } else {
-                    scaffoldKey.currentState.hideCurrentSnackBar();
-                    scaffoldKey.currentState.showSnackBar(
+                    scaffoldKey.currentState!.hideCurrentSnackBar();
+                    scaffoldKey.currentState!.showSnackBar(
                       SnackBar(
                         content: Text(
                           "Patterns do not match",

@@ -4,7 +4,7 @@ import 'package:pattern_lock/src/utils.dart';
 class PatternLock extends StatefulWidget {
   final int dimension;
   final double relativePadding;
-  final Color selectedColor;
+  final Color? selectedColor;
   final Color notSelectedColor;
   final double pointRadius;
   final bool showInput;
@@ -24,26 +24,17 @@ class PatternLock extends StatefulWidget {
   /// [fillPoints] whether fill points.
   /// [onInputComplete] callback that called when user's input complete. Called if user selected one or more points.
   const PatternLock({
-    Key key,
+    Key? key,
     this.dimension = 3,
     this.relativePadding = 0.7,
     this.selectedColor, // Theme.of(context).primaryColor if null
-    this.notSelectedColor,
-
-    /// [Colors.black45] if null
+    this.notSelectedColor = Colors.black45,
     this.pointRadius = 10,
     this.showInput = true,
     this.selectThreshold = 25,
     this.fillPoints = false,
-    @required this.onInputComplete,
-  })  : assert(dimension != null),
-        assert(relativePadding != null),
-        assert(pointRadius != null),
-        assert(showInput != null),
-        assert(selectThreshold != null),
-        assert(fillPoints != null),
-        assert(onInputComplete != null),
-        super(key: key);
+    required this.onInputComplete,
+  })  : super(key: key);
 
   @override
   _PatternLockState createState() => _PatternLockState();
@@ -51,7 +42,7 @@ class PatternLock extends StatefulWidget {
 
 class _PatternLockState extends State<PatternLock> {
   List<int> used = [];
-  Offset currentPoint;
+  Offset? currentPoint;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +57,7 @@ class _PatternLockState extends State<PatternLock> {
         });
       },
       onPanUpdate: (DragUpdateDetails details) {
-        RenderBox referenceBox = context.findRenderObject();
+        RenderBox referenceBox = context.findRenderObject() as RenderBox;
         Offset localPosition =
             referenceBox.globalToLocal(details.globalPosition);
 
@@ -94,7 +85,7 @@ class _PatternLockState extends State<PatternLock> {
           currentPoint: currentPoint,
           relativePadding: widget.relativePadding,
           selectedColor: widget.selectedColor ?? Theme.of(context).primaryColor,
-          notSelectedColor: widget.notSelectedColor ?? Colors.black45,
+          notSelectedColor: widget.notSelectedColor,
           pointRadius: widget.pointRadius,
           showInput: widget.showInput,
           fillPoints: widget.fillPoints,
@@ -109,7 +100,7 @@ class _PatternLockState extends State<PatternLock> {
 class _LockPainter extends CustomPainter {
   final int dimension;
   final List<int> used;
-  final Offset currentPoint;
+  final Offset? currentPoint;
   final double relativePadding;
   final Color selectedColor;
   final Color notSelectedColor;
@@ -121,15 +112,15 @@ class _LockPainter extends CustomPainter {
   final Paint selectedPaint;
 
   _LockPainter({
-    this.dimension,
-    this.used,
+    required this.dimension,
+    required this.used,
     this.currentPoint,
-    this.relativePadding,
-    this.selectedColor,
-    this.notSelectedColor,
-    this.pointRadius,
-    this.showInput,
-    this.fillPoints,
+    required this.relativePadding,
+    required this.selectedColor,
+    required this.notSelectedColor,
+    required this.pointRadius,
+    required this.showInput,
+    required this.fillPoints,
   })  : circlePaint = Paint()
           ..color = notSelectedColor
           ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
@@ -166,6 +157,7 @@ class _LockPainter extends CustomPainter {
         );
       }
 
+      final currentPoint = this.currentPoint;
       if (used.isNotEmpty && currentPoint != null) {
         canvas.drawLine(
           circlePosition(used[used.length - 1]),
