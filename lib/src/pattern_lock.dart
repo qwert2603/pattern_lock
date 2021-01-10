@@ -109,11 +109,8 @@ class _LockPainter extends CustomPainter {
   final List<int> used;
   final Offset? currentPoint;
   final double relativePadding;
-  final Color selectedColor;
-  final Color notSelectedColor;
   final double pointRadius;
   final bool showInput;
-  final bool fillPoints;
 
   final Paint circlePaint;
   final Paint selectedPaint;
@@ -123,11 +120,11 @@ class _LockPainter extends CustomPainter {
     required this.used,
     this.currentPoint,
     required this.relativePadding,
-    required this.selectedColor,
-    required this.notSelectedColor,
+    required Color selectedColor,
+    required Color notSelectedColor,
     required this.pointRadius,
     required this.showInput,
-    required this.fillPoints,
+    required bool fillPoints,
   })   : circlePaint = Paint()
           ..color = notSelectedColor
           ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
