@@ -34,7 +34,7 @@ class PatternLock extends StatefulWidget {
     this.selectThreshold = 25,
     this.fillPoints = false,
     required this.onInputComplete,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   _PatternLockState createState() => _PatternLockState();
@@ -121,7 +121,7 @@ class _LockPainter extends CustomPainter {
     required this.pointRadius,
     required this.showInput,
     required this.fillPoints,
-  })  : circlePaint = Paint()
+  })   : circlePaint = Paint()
           ..color = notSelectedColor
           ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
           ..strokeWidth = 2,
