@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pattern_lock/pattern_lock.dart';
+import 'package:example/util.dart';
 
 class CheckPattern extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,13 +36,10 @@ class CheckPattern extends StatelessWidget {
                 if (listEquals<int>(input, pattern)) {
                   Navigator.of(context).pop(true);
                 } else {
-                  scaffoldKey.currentState!.hideCurrentSnackBar();
-                  scaffoldKey.currentState!.showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "wrong",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                  context.replaceSnackbar(
+                    content: Text(
+                      "wrong",
+                      style: TextStyle(color: Colors.red),
                     ),
                   );
                 }

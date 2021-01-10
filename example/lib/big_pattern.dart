@@ -1,3 +1,4 @@
+import 'package:example/util.dart';
 import 'package:flutter/material.dart';
 import 'package:pattern_lock/pattern_lock.dart';
 
@@ -30,21 +31,18 @@ class BigPattern extends StatelessWidget {
               fillPoints: true,
               onInputComplete: (List<int> input) {
                 if (input.length < 4) {
-                  scaffoldKey.currentState!.hideCurrentSnackBar();
-                  scaffoldKey.currentState!.showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "At least 4 points required",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                  context.replaceSnackbar(
+                    content: Text(
+                      "At least 4 points required",
+                      style: TextStyle(color: Colors.red),
                     ),
                   );
+
                   return;
                 }
 
-                scaffoldKey.currentState!.hideCurrentSnackBar();
-                scaffoldKey.currentState!.showSnackBar(
-                  SnackBar(content: Text("pattern is $input")),
+                context.replaceSnackbar(
+                  content: Text("pattern is $input"),
                 );
               },
             ),

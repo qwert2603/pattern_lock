@@ -1,3 +1,4 @@
+import 'package:example/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pattern_lock/pattern_lock.dart';
@@ -35,13 +36,10 @@ class _SetPatternState extends State<SetPattern> {
               pointRadius: 12,
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {
-                  scaffoldKey.currentState!.hideCurrentSnackBar();
-                  scaffoldKey.currentState!.showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "At least 3 points required",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                  context.replaceSnackbar(
+                    content: Text(
+                      "At least 3 points required",
+                      style: TextStyle(color: Colors.red),
                     ),
                   );
                   return;
@@ -50,13 +48,10 @@ class _SetPatternState extends State<SetPattern> {
                   if (listEquals<int>(input, pattern)) {
                     Navigator.of(context).pop(pattern);
                   } else {
-                    scaffoldKey.currentState!.hideCurrentSnackBar();
-                    scaffoldKey.currentState!.showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Patterns do not match",
-                          style: TextStyle(color: Colors.red),
-                        ),
+                    context.replaceSnackbar(
+                      content: Text(
+                        "Patterns do not match",
+                        style: TextStyle(color: Colors.red),
                       ),
                     );
                     setState(() {

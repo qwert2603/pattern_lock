@@ -1,6 +1,7 @@
 import 'package:example/big_pattern.dart';
 import 'package:example/check_pattern.dart';
 import 'package:example/set_pattern.dart';
+import 'package:example/util.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -71,9 +72,8 @@ class _HomeWidgetState extends State<HomeWidget> {
             onPressed: () async {
               final result = await Navigator.pushNamed(context, "/set_pattern");
               if (result is List<int>) {
-                Scaffold.of(context).hideCurrentSnackBar();
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text("pattern is $result")),
+                context.replaceSnackbar(
+                  content: Text("pattern is $result"),
                 );
                 setState(() {
                   pattern = result;
@@ -94,13 +94,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                   arguments: pattern,
                 );
                 if (result == true) {
-                  Scaffold.of(context).hideCurrentSnackBar();
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "it's correct",
-                        style: TextStyle(color: Colors.green),
-                      ),
+                  context.replaceSnackbar(
+                    content: Text(
+                      "it's correct",
+                      style: TextStyle(color: Colors.green),
                     ),
                   );
                 }
