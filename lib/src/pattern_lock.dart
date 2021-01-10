@@ -2,27 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:pattern_lock/src/utils.dart';
 
 class PatternLock extends StatefulWidget {
+  /// Count of points horizontally and vertically.
   final int dimension;
+
+  /// Padding of points area relative to distance between points.
   final double relativePadding;
+
+  /// Color of selected points.
   final Color? selectedColor;
+
+  /// Color of not selected points.
   final Color notSelectedColor;
+
+  /// Radius of points.
   final double pointRadius;
+
+  /// Whether show user's input and highlight selected points.
   final bool showInput;
+
+  // Needed distance from input to point to select point.
   final int selectThreshold;
+
+  // Whether fill points.
   final bool fillPoints;
+
+  /// Callback that called when user's input complete. Called if user selected one or more points.
   final Function(List<int>) onInputComplete;
 
   /// Creates [PatternLock] with given params.
-  ///
-  /// [dimension] count of points horizontally and vertically.
-  /// [relativePadding] padding of points area relative to distance between points.
-  /// [selectedColor] color of selected points.
-  /// [notSelectedColor] color of not selected points.
-  /// [pointRadius] radius of points.
-  /// [showInput] whether show user's input and highlight selected points.
-  /// [selectThreshold] needed distance from input to point to select point.
-  /// [fillPoints] whether fill points.
-  /// [onInputComplete] callback that called when user's input complete. Called if user selected one or more points.
   const PatternLock({
     Key? key,
     this.dimension = 3,
