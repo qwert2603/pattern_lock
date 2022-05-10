@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pattern_lock/src/pattern_controller.dart';
 import 'package:pattern_lock/src/utils.dart';
 
 class PatternLock extends StatefulWidget {
@@ -44,6 +45,9 @@ class PatternLock extends StatefulWidget {
   /// Callback that called when user's input complete. Called if user selected one or more points.
   final Function(List<int>) onInputComplete;
 
+  /// Callback that called when user's input complete. Called if user selected one or more points.
+  final PatternController? patternController;
+
   /// Creates [PatternLock] with given params.
   const PatternLock({
     Key? key,
@@ -61,6 +65,7 @@ class PatternLock extends StatefulWidget {
     this.clearOnDone = false,
     this.onDrawStart,
     required this.onInputComplete,
+    this.patternController,
   }) : super(key: key);
 
   @override
@@ -70,6 +75,14 @@ class PatternLock extends StatefulWidget {
 class _PatternLockState extends State<PatternLock> {
   List<int> used = [];
   Offset? currentPoint;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.patternController != null) {
+      widget.patternController!.clearPattern = _clearPattern;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +212,13 @@ class _PatternLockState extends State<PatternLock> {
         size: Size.infinite,
       ),
     );
+  }
+
+  void _clearPattern() {
+    setState(() {
+      used = [];
+      currentPoint = null;
+    });
   }
 }
 
