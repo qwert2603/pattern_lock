@@ -23,16 +23,16 @@ class PatternLock extends StatefulWidget {
   /// Whether show user's input and highlight selected points.
   final bool showInput;
 
-  // Needed distance from input to point to select point.
+  /// Needed distance from input to point to select point.
   final int selectThreshold;
 
-  // Width of connecting lines
+  /// Width of connecting lines
   final double strokeWidth;
 
-  // Whether fill points.
+  /// Whether fill points.
   final bool fillPoints;
 
-  // if there are some points between start and end points this flag will add them to list too
+  /// if there are some points between start and end points this flag will add them to list too
   final bool connectMiddlePoints;
 
   /// Callback that called when user's input complete. Called if user selected one or more points.
