@@ -26,6 +26,8 @@ PatternLock(
   relativePadding: 0.7,
   // needed distance from input to point to select point.
   selectThreshold: 25,
+  // duration of vibrate in millis - 0 for no vibration
+  vibrateDuration: 30,
   // whether fill points.
   fillPoints: true,
   // color of connecting lines

@@ -37,7 +37,8 @@ class _SetPatternState extends State<SetPattern> {
               strokeWidth: 8,
               fillPoints: true,
               connectMiddlePoints: true,
-              enabled: false,
+              enabled: true,
+              vibrateDuration: 30,
               clearOnDone: false,
               strokeColor: Colors.amber.withOpacity(0.4),
               onDrawStart: () {

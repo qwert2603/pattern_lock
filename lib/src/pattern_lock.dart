@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pattern_lock/src/pattern_controller.dart';
 import 'package:pattern_lock/src/utils.dart';
+import 'package:vibration/vibration.dart';
 
 class PatternLock extends StatefulWidget {
   /// Count of points horizontally and vertically.
@@ -26,6 +27,9 @@ class PatternLock extends StatefulWidget {
 
   /// Needed distance from input to point to select point.
   final int selectThreshold;
+
+  /// duration of vibrate on selecting point - 0 for no vibrate
+  final int vibrateDuration;
 
   /// Width of connecting lines
   final double strokeWidth;
@@ -63,6 +67,7 @@ class PatternLock extends StatefulWidget {
     this.showInput = true,
     this.strokeWidth = 2,
     this.selectThreshold = 25,
+    this.vibrateDuration = 30,
     this.fillPoints = false,
     this.connectMiddlePoints = true,
     this.enabled = true,
@@ -126,6 +131,12 @@ class _PatternLockState extends State<PatternLock> {
           for (int i = 0; i < widget.dimension * widget.dimension; ++i) {
             final toPoint = (circlePosition(i) - localPosition).distance;
             if (!used.contains(i) && toPoint < widget.selectThreshold) {
+              try {
+                if (widget.vibrateDuration != 0) Vibration.vibrate(duration: widget.vibrateDuration);
+              } catch (e) {
+                debugPrint(e.toString());
+              }
+
               int selectedDot = i;
               // ↑↓ add any vertical points between start and end point
               if (widget.connectMiddlePoints &&
