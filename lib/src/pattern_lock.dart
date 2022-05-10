@@ -36,6 +36,9 @@ class PatternLock extends StatefulWidget {
   /// if there are some points between start and end points this flag will add them to list too
   final bool connectMiddlePoints;
 
+  /// enable/disable gesture drawing
+  final bool enabled;
+
   /// clears the selected points on touch end
   final bool clearOnDone;
 
@@ -62,6 +65,7 @@ class PatternLock extends StatefulWidget {
     this.selectThreshold = 25,
     this.fillPoints = false,
     this.connectMiddlePoints = true,
+    this.enabled = true,
     this.clearOnDone = false,
     this.onDrawStart,
     required this.onInputComplete,
@@ -88,6 +92,7 @@ class _PatternLockState extends State<PatternLock> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanEnd: (DragEndDetails details) {
+        if (!widget.enabled) return;
         if (used.isNotEmpty) {
           widget.onInputComplete(used);
           setState(() {
@@ -97,6 +102,7 @@ class _PatternLockState extends State<PatternLock> {
         }
       },
       onPanStart: (details) {
+        if (!widget.enabled) return;
         if (widget.onDrawStart != null) widget.onDrawStart!();
         setState(() {
           used = [];
@@ -104,6 +110,7 @@ class _PatternLockState extends State<PatternLock> {
         });
       },
       onPanUpdate: (DragUpdateDetails details) {
+        if (!widget.enabled) return;
         RenderBox referenceBox = context.findRenderObject() as RenderBox;
         Offset localPosition = referenceBox.globalToLocal(details.globalPosition);
 
