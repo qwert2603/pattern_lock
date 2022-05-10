@@ -37,6 +37,7 @@ class _SetPatternState extends State<SetPattern> {
               strokeWidth: 8,
               fillPoints: true,
               connectMiddlePoints: true,
+              clearOnDone: false,
               strokeColor: Colors.amber.withOpacity(0.4),
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {

@@ -34,6 +34,8 @@ PatternLock(
   strokeWidth: 8,
   // if there are some points between start and end points this flag will add them to list too
   connectMiddlePoints: true,
+  // clears the selected points on touch end
+  clearOnDone: false,
   // callback that called when user's input complete. Called if user selected one or more points.
   onInputComplete: (List<int> input) {
     print("pattern is $input");

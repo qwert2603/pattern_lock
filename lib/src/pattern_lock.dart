@@ -35,6 +35,9 @@ class PatternLock extends StatefulWidget {
   /// if there are some points between start and end points this flag will add them to list too
   final bool connectMiddlePoints;
 
+  /// clears the selected points on touch end
+  final bool clearOnDone;
+
   /// Callback that called when user's input complete. Called if user selected one or more points.
   final Function(List<int>) onInputComplete;
 
@@ -52,6 +55,7 @@ class PatternLock extends StatefulWidget {
     this.selectThreshold = 25,
     this.fillPoints = false,
     this.connectMiddlePoints = true,
+    this.clearOnDone = false,
     required this.onInputComplete,
   }) : super(key: key);
 
@@ -71,6 +75,7 @@ class _PatternLockState extends State<PatternLock> {
           widget.onInputComplete(used);
           setState(() {
             currentPoint = null;
+            if (widget.clearOnDone) used = [];
           });
         }
       },
