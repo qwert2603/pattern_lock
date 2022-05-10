@@ -34,6 +34,16 @@ class _SetPatternState extends State<SetPattern> {
             child: PatternLock(
               selectedColor: Colors.amber,
               pointRadius: 12,
+              strokeWidth: 8,
+              fillPoints: true,
+              connectMiddlePoints: true,
+              enabled: true,
+              vibrateDuration: 30,
+              clearOnDone: false,
+              strokeColor: Colors.amber.withOpacity(0.4),
+              onDrawStart: () {
+                print("started to draw");
+              },
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {
                   context.replaceSnackbar(
