@@ -38,7 +38,10 @@ class _SetPatternState extends State<SetPattern> {
               fillPoints: true,
               connectMiddlePoints: true,
               clearOnDone: false,
-              strokeColor: Colors.red,
+              strokeColor: Colors.amber.withOpacity(0.4),
+              onDrawStart: () {
+                print("started to draw");
+              },
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {
                   context.replaceSnackbar(

@@ -38,6 +38,9 @@ class PatternLock extends StatefulWidget {
   /// clears the selected points on touch end
   final bool clearOnDone;
 
+  /// Callback that called when user starts drawing
+  final VoidCallback? onDrawStart;
+
   /// Callback that called when user's input complete. Called if user selected one or more points.
   final Function(List<int>) onInputComplete;
 
@@ -56,6 +59,7 @@ class PatternLock extends StatefulWidget {
     this.fillPoints = false,
     this.connectMiddlePoints = true,
     this.clearOnDone = false,
+    this.onDrawStart,
     required this.onInputComplete,
   }) : super(key: key);
 
@@ -80,6 +84,7 @@ class _PatternLockState extends State<PatternLock> {
         }
       },
       onPanStart: (details) {
+        if (widget.onDrawStart != null) widget.onDrawStart!();
         setState(() {
           used = [];
           currentPoint = null;
@@ -271,7 +276,6 @@ class _LockPainter extends CustomPainter {
         );
       }
     }
-
   }
 
   @override

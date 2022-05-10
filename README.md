@@ -36,6 +36,10 @@ PatternLock(
   connectMiddlePoints: true,
   // clears the selected points on touch end
   clearOnDone: false,
+  // Callback that called when user starts drawing
+  onDrawStart: () {
+    print("started to draw");
+  },
   // callback that called when user's input complete. Called if user selected one or more points.
   onInputComplete: (List<int> input) {
     print("pattern is $input");
