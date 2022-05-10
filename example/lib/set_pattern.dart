@@ -38,7 +38,7 @@ class _SetPatternState extends State<SetPattern> {
               fillPoints: true,
               connectMiddlePoints: true,
               clearOnDone: false,
-              strokeColor: Colors.amber.withOpacity(0.4),
+              strokeColor: Colors.red,
               onInputComplete: (List<int> input) {
                 if (input.length < 3) {
                   context.replaceSnackbar(

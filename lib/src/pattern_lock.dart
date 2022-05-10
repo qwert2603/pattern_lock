@@ -243,16 +243,6 @@ class _LockPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Offset circlePosition(int n) => calcCirclePosition(n, size, dimension, relativePadding);
 
-    for (int i = 0; i < dimension; ++i) {
-      for (int j = 0; j < dimension; ++j) {
-        canvas.drawCircle(
-          circlePosition(i * dimension + j),
-          pointRadius,
-          showInput && used.contains(i * dimension + j) ? selectedPaint : circlePaint,
-        );
-      }
-    }
-
     if (showInput) {
       for (int i = 0; i < used.length - 1; ++i) {
         canvas.drawLine(
@@ -271,6 +261,17 @@ class _LockPainter extends CustomPainter {
         );
       }
     }
+
+    for (int i = 0; i < dimension; ++i) {
+      for (int j = 0; j < dimension; ++j) {
+        canvas.drawCircle(
+          circlePosition(i * dimension + j),
+          pointRadius,
+          showInput && used.contains(i * dimension + j) ? selectedPaint : circlePaint,
+        );
+      }
+    }
+
   }
 
   @override
