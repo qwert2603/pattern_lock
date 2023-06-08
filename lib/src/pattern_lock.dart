@@ -14,16 +14,22 @@ class PatternLock extends StatefulWidget {
   /// Color of not selected points.
   final Color notSelectedColor;
 
+  /// Color of the links between points.
+  final Color? linkColor;
+
+  /// The size of the links between points.
+  final int linkSize;
+
   /// Radius of points.
   final double pointRadius;
 
   /// Whether show user's input and highlight selected points.
   final bool showInput;
 
-  // Needed distance from input to point to select point.
+  /// Needed distance from input to point to select point.
   final int selectThreshold;
 
-  // Whether fill points.
+  /// Whether fill points.
   final bool fillPoints;
 
   /// Callback that called when user's input complete. Called if user selected one or more points.
@@ -36,6 +42,8 @@ class PatternLock extends StatefulWidget {
     this.relativePadding = 0.7,
     this.selectedColor, // Theme.of(context).primaryColor if null
     this.notSelectedColor = Colors.black45,
+    this.linkColor, // Theme.of(context).primaryColor.withOpacity(.5) if null
+    this.linkSize = 10,
     this.pointRadius = 10,
     this.showInput = true,
     this.selectThreshold = 25,
