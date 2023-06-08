@@ -42,7 +42,7 @@ class PatternLock extends StatefulWidget {
     this.relativePadding = 0.7,
     this.selectedColor, // Theme.of(context).primaryColor if null
     this.notSelectedColor = Colors.black45,
-    this.linkColor, // Theme.of(context).primaryColor.withOpacity(.5) if null
+    this.linkColor, // Colors.grey if null
     this.linkSize = 10,
     this.pointRadius = 10,
     this.showInput = true,
@@ -101,6 +101,8 @@ class _PatternLockState extends State<PatternLock> {
           relativePadding: widget.relativePadding,
           selectedColor: widget.selectedColor ?? Theme.of(context).primaryColor,
           notSelectedColor: widget.notSelectedColor,
+          linkColor: widget.linkColor ?? Colors.grey,
+          linkSize: widget.linkSize,
           pointRadius: widget.pointRadius,
           showInput: widget.showInput,
           fillPoints: widget.fillPoints,
@@ -122,6 +124,7 @@ class _LockPainter extends CustomPainter {
 
   final Paint circlePaint;
   final Paint selectedPaint;
+  final Paint linkPaint;
 
   _LockPainter({
     required this.dimension,
@@ -130,6 +133,8 @@ class _LockPainter extends CustomPainter {
     required this.relativePadding,
     required Color selectedColor,
     required Color notSelectedColor,
+    required Color linkColor,
+    required int linkSize,
     required this.pointRadius,
     required this.showInput,
     required bool fillPoints,
@@ -141,12 +146,35 @@ class _LockPainter extends CustomPainter {
           ..color = selectedColor
           ..style = fillPoints ? PaintingStyle.fill : PaintingStyle.stroke
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = 2;
+          ..strokeWidth = 2,
+        linkPaint = Paint()
+          ..color = linkColor
+          ..strokeCap = StrokeCap.round
+          ..strokeWidth = linkSize.toDouble();
 
   @override
   void paint(Canvas canvas, Size size) {
     Offset circlePosition(int n) =>
         calcCirclePosition(n, size, dimension, relativePadding);
+
+    if (showInput) {
+      for (int i = 0; i < used.length - 1; ++i) {
+        canvas.drawLine(
+          circlePosition(used[i]),
+          circlePosition(used[i + 1]),
+          linkPaint..color = linkPaint.color,
+        );
+      }
+
+      final currentPoint = this.currentPoint;
+      if (used.isNotEmpty && currentPoint != null) {
+        canvas.drawLine(
+          circlePosition(used[used.length - 1]),
+          currentPoint,
+          linkPaint,
+        );
+      }
+    }
 
     for (int i = 0; i < dimension; ++i) {
       for (int j = 0; j < dimension; ++j) {
@@ -156,25 +184,6 @@ class _LockPainter extends CustomPainter {
           showInput && used.contains(i * dimension + j)
               ? selectedPaint
               : circlePaint,
-        );
-      }
-    }
-
-    if (showInput) {
-      for (int i = 0; i < used.length - 1; ++i) {
-        canvas.drawLine(
-          circlePosition(used[i]),
-          circlePosition(used[i + 1]),
-          selectedPaint,
-        );
-      }
-
-      final currentPoint = this.currentPoint;
-      if (used.isNotEmpty && currentPoint != null) {
-        canvas.drawLine(
-          circlePosition(used[used.length - 1]),
-          currentPoint,
-          selectedPaint,
         );
       }
     }
