@@ -12,7 +12,7 @@ class PatternLock extends StatefulWidget {
   final Color? selectedColor;
 
   /// Color of not selected points.
-  final Color notSelectedColor;
+  final Color? notSelectedColor;
 
   /// Color of the links between points.
   final Color? linkColor;
@@ -41,7 +41,7 @@ class PatternLock extends StatefulWidget {
     this.dimension = 3,
     this.relativePadding = 0.7,
     this.selectedColor, // Theme.of(context).primaryColor if null
-    this.notSelectedColor = Colors.black45,
+    this.notSelectedColor,
     this.linkColor, // Colors.grey if null
     this.linkSize = 10,
     this.pointRadius = 10,
@@ -99,8 +99,8 @@ class _PatternLockState extends State<PatternLock> {
           used: used,
           currentPoint: currentPoint,
           relativePadding: widget.relativePadding,
-          selectedColor: widget.selectedColor ?? Theme.of(context).primaryColor,
-          notSelectedColor: widget.notSelectedColor,
+          selectedColor: widget.selectedColor ?? Theme.of(context).colorScheme.onBackground,
+          notSelectedColor: widget.notSelectedColor ?? Theme.of(context).colorScheme.onSurface,
           linkColor: widget.linkColor ?? Colors.grey,
           linkSize: widget.linkSize,
           pointRadius: widget.pointRadius,
