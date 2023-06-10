@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Pattern Lock Demo',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        useMaterial3: true
       ),
       routes: {
         "/check_pattern": (BuildContext context) => CheckPattern(),
@@ -50,24 +51,18 @@ class _HomeWidgetState extends State<HomeWidget> {
             style: TextStyle(fontSize: 16),
           ),
           SizedBox(height: 4),
-          InkWell(
-            child: Text(
-              'https://github.com/qwert2603/pattern_lock',
-              style: TextStyle(fontSize: 16, color: Colors.deepOrange),
-            ),
-            onTap: () => launch("https://github.com/qwert2603/pattern_lock"),
-          ),
+          TextButton(onPressed: () => launch("https://github.com/qwert2603/pattern_lock"), child: Text(
+            'https://github.com/qwert2603/pattern_lock',
+            style: TextStyle(fontSize: 16, color: Colors.deepOrange),
+          )),
           SizedBox(height: 4),
-          InkWell(
-            child: Text(
-              'https://pub.dev/packages/pattern_lock',
-              style: TextStyle(fontSize: 16, color: Colors.deepOrange),
-            ),
-            onTap: () => launch("https://pub.dev/packages/pattern_lock"),
-          ),
+          TextButton(onPressed: () => launch("https://pub.dev/packages/pattern_lock"), child: Text(
+            'https://pub.dev/packages/pattern_lock',
+            style: TextStyle(fontSize: 16, color: Colors.deepOrange),
+          )),
           SizedBox(height: 24),
-          MaterialButton(
-            color: Colors.lightGreen,
+          FilledButton.tonal(
+            style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.lightGreen)),
             child: Text("Set Pattern", style: TextStyle(color: Colors.white)),
             onPressed: () async {
               final result = await Navigator.pushNamed(context, "/set_pattern");
@@ -83,8 +78,8 @@ class _HomeWidgetState extends State<HomeWidget> {
           ),
           if (pattern != null) ...[
             SizedBox(height: 16),
-            MaterialButton(
-              color: Colors.green,
+            FilledButton.tonal(
+              style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green)),
               child:
                   Text("Check Pattern", style: TextStyle(color: Colors.white)),
               onPressed: () async {
@@ -105,8 +100,8 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
           ],
           SizedBox(height: 24),
-          MaterialButton(
-            color: Colors.red,
+          FilledButton.tonal(
+            style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red)),
             child: Text("Big Pattern", style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pushNamed(context, "/big_pattern"),
           ),
